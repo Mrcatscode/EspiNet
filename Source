@@ -1,0 +1,482 @@
+#Good luck getting the correct imports
+#I purposely got rid of some very important bits of code
+#So that EspiNet can't be easily replicated
+#This is mainly to show users that EspiNet is SAFE TO USE
+
+AppVersion = "1.0.2"
+print(f"EspiNet {AppVersion} - Developed by .......")
+
+# region Values
+global key
+Connected = False
+Stealthval = False
+ServerIP = f"............" 
+key = '.................'
+RoomKey = 'Global'
+global last_message_count
+last_message_count = 0
+Connection = 1
+UniqueID = None
+String = string.ascii_letters + string.digits
+ExtrasOpened = False
+Admin = False
+#endregion
+
+# region Functions
+
+def README():
+    if getattr(sys, 'frozen', False):
+        ReadBase = os.path.dirname(sys.executable)
+        ReadName = 'build\\UID'
+    else:
+        ReadBase = os.path.dirname(os.path.abspath(__file__))
+        ReadName = 'README.txt'
+    ReadPath = os.path.join(ReadBase, ReadName)
+    with open(ReadPath, 'r') as file:
+        print(file)
+
+def Extras():
+    global Window, ExtrasOpened
+    if ExtrasOpened == False:
+        Settingsholder.place(x=160, y=40, anchor='nw')
+        ExtrasOpened = True
+    else:
+        Settingsholder.place_forget()
+        ExtrasOpened = False
+
+def SetID():
+    global UniqueID, String
+    if getattr(sys, 'frozen', False):
+        IDBase = os.path.dirname(sys.executable)
+        IDName = 'build\\UID'
+    else:
+        IDBase = os.path.dirname(os.path.abspath(__file__))
+        IDName = 'UID'
+    IDPath = os.path.join(IDBase, IDName)
+    print(IDPath)
+    try:
+        with open(IDPath, 'r') as file:
+            UniqueID = file.read().strip()
+            pass
+    except Exception as e:
+        print(e)
+        try:
+            with open(IDPath, 'w') as file:
+                UIDGenerated = ''.join(random.choice(String) for i in range(5))
+                file.write(UIDGenerated)
+                UniqueID = UIDGenerated
+        except Exception as e:
+            print(f"There was an error retrieving UID: {e}")
+    print(UniqueID)
+    return UniqueID
+                
+def SetRoom(override):
+    global RoomKey, last_message_count
+    RoomKey = RoomNumberEntry.get().strip()
+    if RoomKey == "":
+        RoomKey = 'Global'
+    elif RoomKey == 'AdminSpace' and Admin == False:
+        RoomKey = 'Global'
+    elif override == "Global":
+        RoomKey = "Global"
+    elif override == 'AdminSpace' and Admin == True:
+        RoomKey = 'AdminSpace'
+    print("Room set to:", RoomKey)
+    # When the room changes, reset the message count to fetch all messages for the new room
+    last_message_count = 0
+    # Immediately update the chat for the new room
+    update_chat(initial_load=True) # Pass a flag to force full reload and scroll to end
+
+def disconectfromserver():
+    global ServerIP
+    server_url = f"http://{ServerIP}:5389/data"
+    try:
+        connect_payload = {"connectionstatus": "disconnect"}
+        post_response = requests.post(server_url, json=connect_payload)
+        post_response.raise_for_status()
+        post_data = post_response.json()
+        Window.destroy()
+    except Exception as e:
+        print(e)
+        Window.destroy()
+
+def connecttoserver():
+    """
+    Connects to the server, verifies the version, and sends a connection status
+    message to increment the online user count on the server.
+    """
+    global ServerIP, AppVersion, TextChat, Window, key, Connected, Connection
+    
+    # URL for the server's data endpoint
+    server_url = f"http://{ServerIP}:5389/data"
+    
+    try:
+        # First, send a GET request to check the server's status and version.
+        response = requests.get(server_url)
+        response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+        
+        data = response.json()
+        
+        if data.get("Version") == AppVersion:
+            print("Connection to server: ", data.get("connection"))
+            
+            # Now, if the version matches, send a POST request to register as connected.
+            try:
+                connect_payload = {"connectionstatus": "connect"}
+                post_response = requests.post(server_url, json=connect_payload)
+                post_response.raise_for_status()
+                post_data = post_response.json()
+                
+                # Check the response from the POST request
+                if post_data.get("status") == "received":
+                    Connected = True
+                    print(f"Successfully sent 'connect' request. Online users: {post_data.get('online_users')}")
+                else:
+                    print("Error sending 'connect' request to server.")
+
+            except requests.exceptions.RequestException as post_error:
+                print("Error sending 'connect' request:", post_error)
+            
+        else:
+            if TextChat:
+                TextChat.configure(state="normal")
+                TextChat.insert('end', f"Version mismatch! Please update the client to {data.get('Version')}\n")
+                TextChat.configure(state="disabled")
+            if Window:
+                Window.after(2500, Window.destroy)
+                
+    except requests.exceptions.RequestException as e:
+        print("Error connecting to server:", e)
+        
+    if not Connected:
+        if Window:
+            # Re-attempt connection after 1 second if not connected
+            Window.after(1000, connecttoserver)
+        else:
+            print("Client is not connected. Re-attempting connection...")
+            connecttoserver()
+    else:
+        # If successfully connected, you can add code here to proceed with the app
+        print("Client is now connected and ready.")
+
+def Stealth():
+    global Stealthval, TitleLabel
+    TitleLabel.configure(fg_color="#5C0099")
+    TitleBar.configure(fg_color="#5C0099")
+    StealthButton.configure(fg_color="#5C0099")
+    ExitButton.configure(fg_color="#5C0099")
+    if Stealthval == False:
+        Stealthval = True
+        Window.attributes("-alpha", 0.1)
+        Window.geometry("200x100+0+0")  # Minimize the window size for stealth mode
+    else:
+        Stealthval = False
+        Window.attributes("-alpha", 0.9)
+        Window.geometry("700x600")
+
+def textlimit(limit=500):
+    global TextEntry
+    if len(TextEntry.get()) > limit:
+        TextEntry.delete(limit, 'end')
+    Window.after(100, textlimit)
+
+def namelimit(limit=20):
+    global Usernameentry
+    if len(Usernameentry.get()) > limit:
+        Usernameentry.delete(limit, 'end')
+    Window.after(100, namelimit)
+
+def update_chat(initial_load=False): # Added initial_load parameter
+    global TextChat, ServerIP, key, RoomKey, last_message_count, TitleBar
+    try:
+        response = requests.get(f"http://{ServerIP}:5389/data", params={"room": RoomKey})
+        if response.status_code == 200:
+            data = response.json()
+            messages = data.get("messages", [])
+
+            # Only update if there are new messages or if it's an initial load/room change
+            if len(messages) > last_message_count or initial_load:
+                TextChat.configure(state="normal")
+                
+                # If it's an initial load (e.g., app start or room change), clear and load all
+                if initial_load:
+                    TextChat.delete(1.0, 'end')
+                    messages_to_add = messages
+                else:
+                    # Otherwise, just add the new messages
+                    messages_to_add = messages[last_message_count:]
+
+                for message in messages_to_add:
+                    fernet = Fernet(key)
+                    # Ensure message is bytes before decoding from base64
+                    message_decoded = fernet.decrypt(message.encode()).decode()
+                    TextChat.insert('end', message_decoded + "\n\n")
+                
+                if Stealthval == True:
+                    TitleLabel.configure(fg_color="#704070")
+                    TitleBar.configure(fg_color="#704070")
+                    StealthButton.configure(fg_color="#704070")
+                    ExitButton.configure(fg_color="#704070")
+                    Window.attributes("-alpha", 0.2)
+                
+                TextChat.configure(state="disabled")
+                
+                # Update the last_message_count to the current total number of messages
+                last_message_count = len(messages)
+
+                # If it's an initial load or room change, scroll to the end
+                if initial_load:
+                    TextChat.see('end')
+
+    except requests.exceptions.RequestException as e:
+        print("Error fetching messages:", e)
+    
+    Window.after(500, update_chat)
+
+def send_message(override):
+    global TextChat, TextEntry, Usernameentry, ServerIP, key, RoomKey
+    Username = Usernameentry.get().strip()
+    UID = SetID()
+    print(UID)
+    if not Username:
+        Username = "Anonymous"
+    elif "admin" in Username.lower():
+        if Admin == True:
+            Username = "⩑~Admin"
+        else:
+            Username = "Fake~Admin"
+    elif Username.lower() == "void":
+        Username = "⌬~Void"
+
+    message_text = TextEntry.get().strip()
+    if Username.lower() == "furry":
+        message_text += " ~ UwU"
+    elif Username.lower() == "femboy":
+        message_text += " ~ ;3"
+    if override:
+        message_text = override
+    elif message_text.lower() == "/flip":
+        message_text = "(╯°□°）╯︵ ┻━┻"
+    elif message_text.lower() == "/unflip":
+        message_text = "┬─┬ ノ( ゜-゜ノ)"
+    elif message_text.lower() == "/shrug":
+        message_text = "¯\\_(ツ)_/¯"
+    elif message_text.lower() == "/table":
+        message_text = "┬──┬ ノ( ゜-゜ノ)"
+    elif message_text.lower() == "/lenny":
+        message_text = "( ͡° ͜ʖ ͡°)"
+    elif message_text.lower() == "/help":
+        message_text = """Available commands:
+        /flip - Flips the table
+        /unflip - Unflips the table
+        /shrug - Shrug emoticon
+        /table - Sets the table upright
+        /lenny - Lenny face
+        /help - Show this help message"""
+    
+    if Admin == False:
+        message = f"""_________________________________________________________________
+{Username} | {UID}:
+{message_text}
+    _________________________________________________________________
+    """
+    elif Admin == True:
+        message = f"""_________________________________________________________________
+{Username} | {UID} | Admin:
+{message_text}
+    _________________________________________________________________
+    """
+    if message_text:
+        fernet = Fernet(key)
+        encrypted = fernet.encrypt(message.encode()).decode()
+        url = f"http://{ServerIP}:5389/data"
+        payload = {
+            "room": RoomKey,
+            "message": encrypted,
+            "ID": UID
+        }
+        response = requests.post(url, json=payload)
+        if response.status_code != 200:
+            print("Failed to send message:", response.status_code)
+
+    TextEntry.delete(0, 'end')
+    # When a user sends a message, it's generally expected to scroll to the end
+    TextChat.see('end')
+
+def updateonlinecount():
+    global ActiveUserscount
+    response = requests.get(f"http://{ServerIP}:5389/data")
+    data = response.json()
+    ActiveUsers = data.get("online_users")
+    ActiveUserscount.configure(text=f'Active Users: {ActiveUsers}')
+    Window.after(500, updateonlinecount)
+
+def SendBan():
+    if Admin == True:
+        global TextEntry
+        BanID = TextEntry.get()
+        if BanID:
+            url = f"http://{ServerIP}:5389/data"
+            payload = {"banrequest": BanID}
+            response = requests.post(url, json=payload)
+            if response.status_code != 200:
+                print("Failed to send message:", response.status_code)
+            send_message(f'{BanID} has been banned!')
+            TextEntry.delete(0, 'end')
+            TextEntry.update()
+
+def SendUnban():
+    if Admin == True:
+        global TextEntry
+        UnBanID = TextEntry.get()
+        if UnBanID:
+            url = f"http://{ServerIP}:5389/data"
+            payload = {"unbanrequest": UnBanID}
+            response = requests.post(url, json=payload)
+            if response.status_code != 200:
+                print("Failed to send message:", response.status_code)
+            send_message(f'{UnBanID} has been unbanned!')
+            TextEntry.delete(0, 'end')
+            TextEntry.update()
+
+def ClearRoom():
+    if Admin == True:
+        global RoomKey
+        print('Room clearing...')
+        url = f"http://{ServerIP}:5389/data"
+        payload = {"room": RoomKey, "clearroom": True}
+        response = requests.post(url, json=payload)
+        print('Room cleared!')
+        if response.status_code != 200:
+            print("Failed to clear room:", response.status_code)
+        else:
+            print(f"Room '{RoomKey}' cleared.")
+
+def GetChatUpdate():
+    response = requests.get(f"http://{ServerIP}:5389/data")
+    data = response.json()
+
+# endregion
+
+Window = ctk.CTk()
+Window.geometry("700x600")
+Window.title("EspiNet")
+ctk.set_appearance_mode("dark")
+Window.overrideredirect(True)
+Window.attributes("-topmost", True, "-toolwindow", True)
+Window.attributes("-alpha", 0.9)
+Window.protocol("WM_DELETE_WINDOW", disconectfromserver)
+
+# region TitleBar
+TitleBar = ctk.CTkFrame(Window, height=40, fg_color="#5C0099", corner_radius=0)
+TitleBar.pack(fill="x")
+ExitButton = ctk.CTkButton(TitleBar, text="X", command=disconectfromserver, width=40, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=0)
+ExitButton.pack(side="right")
+TitleLabel = ctk.CTkLabel(TitleBar, text="EspiNet", text_color="white", font=("Arial", 16), corner_radius=0)
+TitleLabel.pack(side="left", padx=10)
+TitleBar.bind("<Button-1>", lambda event: TitleBar.start_drag(event))
+TitleBar.bind("<B1-Motion>", lambda event: TitleBar.drag(event))
+StealthButton = ctk.CTkButton(TitleBar, text="Stealth", command=Stealth, width=80, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=0)
+StealthButton.pack(side="left", padx=1)
+Extrasmenu = ctk.CTkButton(TitleBar, text="Extras", command=lambda: Extras(), width=80, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=0)
+Extrasmenu.pack(side="left", padx=1)
+
+def start_drag(event):
+    TitleBar.x = event.x
+    TitleBar.y = event.y
+
+def drag(event):
+    x = event.x - TitleBar.x
+    y = event.y - TitleBar.y
+    Window.geometry(f"+{Window.winfo_x() + x}+{Window.winfo_y() + y}")
+
+TitleBar.start_drag = start_drag
+TitleBar.drag = drag
+TitleLabel.bind("<Button-1>", lambda event: TitleBar.start_drag(event))
+TitleLabel.bind("<B1-Motion>", lambda event: TitleBar.drag(event))
+
+# endregion
+
+# region Widgets
+
+# region beauty
+TextChat = ctk.CTkTextbox(Window, width=700, height=400, corner_radius=5, fg_color="#1A1A1A", text_color="white", font=("Arial", 18), border_width=0, wrap="word", state="disabled")
+TextChat.pack(pady=10, padx=10, fill="x")
+TextEntry = ctk.CTkEntry(Window, width=700, height=50, corner_radius=5, fg_color="#1A1A1A", text_color="white", font=("Arial", 18), border_width=0, placeholder_text="Type your message here...", placeholder_text_color="#7A00B3")
+TextEntry.pack(pady=10, padx=10, fill="x")
+TextEntry.bind("<Return>", lambda event: send_message(None))
+ButtonHolder = ctk.CTkFrame(Window, height=50, fg_color="#1A1A1A", corner_radius=0)
+ButtonHolder.pack(fill="x", padx=10, pady=10)
+Usernameentry = ctk.CTkEntry(ButtonHolder, width=150, height=40, corner_radius=5, fg_color="#2E2E2E", text_color="white", font=("Arial", 17), border_width=0, placeholder_text="Username", placeholder_text_color="#7A00B3")
+Usernameentry.pack(side="left", padx=1)
+RoomNumberEntry = ctk.CTkEntry(ButtonHolder, width=150, height=40, corner_radius=5, fg_color="#2E2E2E", text_color="white", font=("Arial", 17), border_width=0, placeholder_text="Room Number", placeholder_text_color="#7A00B3")
+RoomNumberEntry.pack(side="left", padx=1)
+SetRoomButton = ctk.CTkButton(ButtonHolder, text="Set Room", command=lambda: SetRoom(None), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+SetRoomButton.pack(side="left", padx=1)
+
+if Admin == True:
+    BanButton = ctk.CTkButton(ButtonHolder, text="BanUser", command=lambda: SendBan(), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+    BanButton.pack(side="left", padx=1)
+
+ActiveUserscount = ctk.CTkLabel(ButtonHolder, text=f'Active Users: 0', font=("Arial", 17))
+ActiveUserscount.pack(side='right', padx=5)
+#endregion
+
+#region Extra stuff
+Settingsholder = ctk.CTkScrollableFrame(Window, fg_color='black', width=240, height=330)
+Settingsholder.place(x=-960, y=-40, anchor='nw')
+
+DividerTests = ctk.CTkLabel(Settingsholder, text='---Testing---')
+DividerTests.pack(padx=2, pady=3, fill='x', expand=True)
+
+HelloWorldTestButton = ctk.CTkButton(Settingsholder, text="HelloWorld!", command=lambda: print("Hello, World!"), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+HelloWorldTestButton.pack(padx=2, pady=3, fill='x', expand=True)
+ClearConsole = ctk.CTkButton(Settingsholder, text="CLS", command=lambda: os.system('cls'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ClearConsole.pack(padx=2, pady=3, fill='x', expand=True)
+
+DividerAppearance = ctk.CTkLabel(Settingsholder, text='---Themes---')
+DividerAppearance.pack(padx=2, pady=3, fill='x', expand=True)
+
+Lightmode = ctk.CTkButton(Settingsholder, text="Lightmode", command=lambda: ctk.set_appearance_mode("light"), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+Lightmode.pack(padx=2, pady=3, fill='x', expand=True)
+Darkmode = ctk.CTkButton(Settingsholder, text="Darkmode", command=lambda: ctk.set_appearance_mode("dark"), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+Darkmode.pack(padx=2, pady=3, fill='x', expand=True)
+
+DividerMisc = ctk.CTkLabel(Settingsholder, text='---Misc---')
+DividerMisc.pack(padx=2, pady=3, fill='x', expand=True)
+
+SetGlobal = ctk.CTkButton(Settingsholder, text="GlobalRoom", command=lambda: SetRoom("Global"), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+SetGlobal.pack(padx=2, pady=3, fill='x', expand=True)
+
+DocWindow = ctk.CTkButton(Settingsholder, text="README", command=lambda: README, width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+DocWindow.pack(padx=2, pady=3, fill='x', expand=True)
+
+if Admin == True:
+    DividerAdmin = ctk.CTkLabel(Settingsholder, text='---Admin---')
+    DividerAdmin.pack(padx=2, pady=3, fill='x', expand=True)
+    
+    UnbanButton = ctk.CTkButton(Settingsholder, text="Unban", command=lambda: SendUnban(), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+    UnbanButton.pack(padx=2, pady=3, fill='x', expand=True)
+    
+    AdminSpaceButton = ctk.CTkButton(Settingsholder, text="AdminSpace", command=lambda: SetRoom('AdminSpace'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+    AdminSpaceButton.pack(padx=2, pady=3, fill='x', expand=True)
+    
+    ClearRoomButton = ctk.CTkButton(Settingsholder, text="Clear Room", command=ClearRoom, width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+    ClearRoomButton.pack(padx=2, pady=3, fill='x', expand=True)
+
+DividerCust = ctk.CTkLabel(Settingsholder, text='---Custom---')
+DividerCust.pack(padx=2, pady=3, fill='x', expand=True)
+
+#endregion
+
+# endregion
+
+SetID()
+connecttoserver()
+textlimit()
+namelimit()
+updateonlinecount()
+
+update_chat(initial_load=True) 
+
+Window.mainloop()
