@@ -1,17 +1,12 @@
-#Good luck getting the correct imports
-#I purposely got rid of some very important bits of code
-#So that EspiNet can't be easily replicated
-#This is mainly to show users that EspiNet is SAFE TO USE
-
 AppVersion = "1.0.2"
-print(f"EspiNet {AppVersion} - Developed by .......")
+print(f"EspiNet {AppVersion} - Developed by ..........")
 
 # region Values
 global key
 Connected = False
 Stealthval = False
-ServerIP = f"............" 
-key = '.................'
+ServerIP = f".........."
+key = '...................'
 RoomKey = 'Global'
 global last_message_count
 last_message_count = 0
@@ -19,7 +14,7 @@ Connection = 1
 UniqueID = None
 String = string.ascii_letters + string.digits
 ExtrasOpened = False
-Admin = False
+
 #endregion
 
 # region Functions
@@ -339,6 +334,19 @@ def SendUnban():
             TextEntry.delete(0, 'end')
             TextEntry.update()
 
+def SendReport(Reason):
+    if Reason and UniqueID:
+        global TextEntry
+        ReportID = TextEntry.get().strip()
+        if ReportID:
+            url = f"http://{ServerIP}:5389/data"
+            payload = {"reportrequest": f"{ReportID} was reported for: {Reason} by {UniqueID} in room {RoomKey}"}
+            response = requests.post(url, json=payload)
+            if response.status_code != 200:
+                print("Failed to send report:", response.status_code)
+            TextEntry.delete(0, 'end')
+            TextEntry.update()
+
 def ClearRoom():
     if Admin == True:
         global RoomKey
@@ -450,6 +458,24 @@ SetGlobal.pack(padx=2, pady=3, fill='x', expand=True)
 
 DocWindow = ctk.CTkButton(Settingsholder, text="README", command=lambda: README, width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
 DocWindow.pack(padx=2, pady=3, fill='x', expand=True)
+
+DividerReports = ctk.CTkLabel(Settingsholder, text='---Reports---')
+DividerReports.pack(padx=2, pady=3, fill='x', expand=True)
+
+ReportAbuse = ctk.CTkButton(Settingsholder, text="Report Abuse", command=lambda: SendReport('Reason_Abuse'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ReportAbuse.pack(padx=2, pady=3, fill='x', expand=True)
+
+ReportHarrasment = ctk.CTkButton(Settingsholder, text="Report Harrasment", command=lambda: SendReport('Reason_Harrasment'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ReportHarrasment.pack(padx=2, pady=3, fill='x', expand=True)
+
+ReportBullying = ctk.CTkButton(Settingsholder, text="Report Bullying", command=lambda: SendReport('Reason_Bullying'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ReportBullying.pack(padx=2, pady=3, fill='x', expand=True)
+
+ReportRacism = ctk.CTkButton(Settingsholder, text="Report Racism", command=lambda: SendReport('Reason_Racism'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ReportRacism.pack(padx=2, pady=3, fill='x', expand=True)
+
+ReportSpam = ctk.CTkButton(Settingsholder, text="Report Spam", command=lambda: SendReport('Reason_Spamming'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
+ReportSpam.pack(padx=2, pady=3, fill='x', expand=True)
 
 if Admin == True:
     DividerAdmin = ctk.CTkLabel(Settingsholder, text='---Admin---')
