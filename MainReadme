@@ -1,9 +1,12 @@
 Thank you for installing EspiNet!
 
-EspiNet is an unblocked application for group and direct communications, without the worry of the school catching these messages!.
+EspiNet is an unblocked application for group and direct communications, without having to worry about the school seeing your messages!.
 
 EspiNet was originally made when the original dev was bored one day, but now
-EspiNet has the goal of connecting users with freedom and anonymity.
+EspiNet has the goal of connecting users with freedom, anonymity and rights.
+I hate when schools block the ability to communicate in such an effective way
+or try to spy on everything being sent, EspiNet is constantly being updated so that
+it is as difficult to read important information as possible!
 
 ------------------------------------------------------------------------
 Rules:
@@ -13,9 +16,9 @@ people choose to abuse that freedom and so targeted hate speech
 is bannable (No hate against: minorities, ethnic groups, Lgbtq+)
 
 2. No bypassing a ban! Users who bypass a ban will be PERMANANTLY banned.
-Most bans are temporary and are reset when the server is reset but permant bans are HARDCODED into the server! newer versions of EspiNet 
+Most bans are temporary and are reset when the server is reset but permanant bans are HARDCODED into the server! newer versions of EspiNet 
 will have the user PRE-BANNED and the anti-bypass measures are constantly
-being updated, re-worked and improved!
+being updated, re-worked and improved! --- IP Bans Have Been Added!
 
 3. No impersonating a dev/admin/mod Any impersonators will be banned!
 We at EspiNet try very hard to keep everything peaceful, if someone is impersonating one of us then that can damage the EspiNet team's reputation!
@@ -49,8 +52,9 @@ Rooms are case sensitive which means: Updates is not the same as updates. Make s
 5-inf. Common 'class codes' are formatted as Room+yearlevel <-- so if you are in year 11 english you type >> English11 or if you are in year 12 math you type >> Math12
 ------------------------------------------------------------------------
 
-The EspiNet team is constantly growing and needs more people all the time! so if you think you are capable of handling situations and can hold back against excessive banning please put in a submission in the room
->> Submissions << This may not be checked often so your request may take a while.
+The EspiNet team is constantly growing and needs more people all the time! so if you think you are capable of handling situations and can hold back against excessive banning p̶l̶e̶a̶s̶e̶ ̶p̶u̶t̶ ̶i̶n̶ ̶a̶ ̶s̶u̶b̶m̶i̶s̶s̶i̶o̶n̶ ̶i̶n̶ ̶t̶h̶e̶ ̶r̶o̶o̶m̶
+̶>̶>̶ ̶S̶u̶b̶m̶i̶s̶s̶i̶o̶n̶s̶ ̶<̶<̶ ̶T̶h̶i̶s̶ ̶m̶a̶y̶ ̶n̶o̶t̶ ̶b̶e̶ ̶c̶h̶e̶c̶k̶e̶d̶ ̶o̶f̶t̶e̶n̶ ̶s̶o̶ ̶y̶o̶u̶r̶ ̶r̶e̶q̶u̶e̶s̶t̶ ̶m̶a̶y̶ ̶t̶a̶k̶e̶ ̶a̶ ̶w̶h̶i̶l̶e̶.̶  Ask an admin to put in a request for you! (Most admins have a way to talk to me directly [main dev] and can 
+get your request seen MUCH faster!)
 
 EspiNet is built as a Python executable.
 
@@ -67,14 +71,16 @@ There are some commands that can be used for EspiNet:
 Discord style emoji commands >> :sob:, :smile:, :heart: and more!
 
 /flip >> (╯°□°）╯︵ ┻━┻
-/lenny >> 
+/lenny >> ( ͡° ͜ʖ ͡°)
 
 and more!
 
+-------------------------------------------------------------------------------------
 EspiNet has its own bot named Mere!
-You can activate Mere by using !mere and then typing what you want
-to tell Mere (You can add !Mere anywhere in your text, it does not have
+You can activate Mere by using !mere and then typing what you want to tell Mere (You can add !Mere anywhere in your text, it does not have
 to be at the beginning)
+NOTE: Please do NOT abuse Mere, Mere learns and grows with EVERY user prompt!!!
+-------------------------------------------------------------------------------------
 
 Please DO NOT abuse Mere, Mere learns and adapts based off of EVERYONES prompts
 every prompt will help Mere learn and adapt (This means if anyone decides
@@ -82,31 +88,35 @@ to start trying to teach Mere how to be extremely rude or racist then it affects
 and the user who does this WILL BE BANNED) OWNER does have access to what users say
 to Mere!!!
 
+-------------------------------------------------------------------------------------
 FAQ:
 
-Q: "It says that there is a virus" or "My computer says it may be malicious"
+Q: "It says that there is a virus" or "My computer says it may be malicious" when trying to open or
+download EspiNer
 
 A: Sometimes if the device does not know where an app came from the device will
-say it is malicous (Even when it isn't) you may be able to press more details and
-"Run anyway" but if thay does not work then you may need to disable your anti-virus
+say it is possibly malicous (Even when it isn't) you may be able to press more details and
+"Run anyway" but if that does't work then you may need to disable your anti-virus (Figure out the rest yourself)
 
 Q: How do I know if the room I made works?
 
 A: If all the previous text from the previous room is gone then you are in a new room
-if you type some stuff and try to go back to the previous room you will see the text
+if you type some stuff and try to go back to the previous room you will see the text will
 dissappear
 
 Q: When I try to open EspiNet a popup appears saying something went wrong?
 
-A: EspiNet is ran on the school network through a singular laptop, we don't have
-a dedicated server just yet and so sometimes the client can't connect to anything and throws an error
+A: EspiNet is run on the school network through a singular laptop, we don't have
+a dedicated server just yet, so sometimes the client can't connect to anything and throws an error
 this is a problem with how the networking is done and can only be fixed with a dedicated server.
 If you want to help us get a dedicated cloud server you can donate to the devs!
 
-Q: Why do I have to open a folder and then EspiNet?
+Q: Why do I have to open a folder to get to EspiNet and then open EspiNet?
 
 A: This is how all apps actually work, the reason you have to open the file is because
 the EXE is kept there. You can actually create something called a "Shortcut" most apps
 do this automatically when installing to make it easier and less clunky to open,
-you can do this manually by right clicking on the EspiNet.exe and clicking
-"create shortcut" then you can place it on your desktop like any other app.
+you can do this manually by right clicking on EspiNet.exe and clicking
+"create shortcut" then you can place it on your desktop (Or anywhere) like any other app.
+
+-------------------------------------------------------------------------------------
