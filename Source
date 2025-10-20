@@ -1,5 +1,9 @@
 AppVersion = "1.0.2"
-print(f"EspiNet {AppVersion} - Developed by ..........")
+print(f"EspiNet {AppVersion} - Developed by Original Dev")
+
+# This code can not be used on its own as I have designed it to work
+# Along side a server script and also have made the code
+# incomplete, so it will not work regardless of a server
 
 # region Values
 global key
