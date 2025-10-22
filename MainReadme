@@ -2,8 +2,9 @@ Thank you for installing EspiNet!
 
 EspiNet is an unblocked application for group and direct communications, without having to worry about the school seeing your messages!.
 
-EspiNet was originally made when the original dev was bored one day, but now
-EspiNet has the goal of connecting users with freedom, anonymity and rights.
+EspiNet was originally made when original Dev was bored one day, but now
+EspiNet has the goal of connecting users with freedom and anonymity with a huge focus
+on everyones rights.
 I hate when schools block the ability to communicate in such an effective way
 or try to spy on everything being sent, EspiNet is constantly being updated so that
 it is as difficult to read important information as possible!
@@ -11,17 +12,20 @@ it is as difficult to read important information as possible!
 ------------------------------------------------------------------------
 Rules:
 
-1. Freedom of speach is a VERY important part of EspiNet but some
+1. Freedom of speech is a VERY important part of EspiNet but some
 people choose to abuse that freedom and so targeted hate speech
-is bannable (No hate against: minorities, ethnic groups, Lgbtq+)
+is bannable (No hate against: minorities, ethnic groups, Lgbtq+ and etc)
 
 2. No bypassing a ban! Users who bypass a ban will be PERMANANTLY banned.
 Most bans are temporary and are reset when the server is reset but permanant bans are HARDCODED into the server! newer versions of EspiNet 
 will have the user PRE-BANNED and the anti-bypass measures are constantly
-being updated, re-worked and improved! --- IP Bans Have Been Added!
+being updated, re-worked and improved! --- IP Bans exist aswell as ID bans!
 
-3. No impersonating a dev/admin/mod Any impersonators will be banned!
-We at EspiNet try very hard to keep everything peaceful, if someone is impersonating one of us then that can damage the EspiNet team's reputation!
+IP Ban > ID Ban (Ip bans are worse than ID bans and are VERY hard to bypass)
+
+3. No impersonating a dev/admin/mod. Any impersonators will be banned!
+We at EspiNet try very hard to keep everything peaceful and if someone is impersonating one of
+us that can damage the EspiNet team's reputation!
 
 4. No spamming! Spammers will be banned as soon as an admin/mod sees the spammer! If you need more space to type then put in a request to change the max type space! But at the moment users are allowed to type 500 unique characters within one message.
 
@@ -34,8 +38,7 @@ any other user, you still have to follow all of the previous rules with the exce
 
 ------------------------------------------------------------------------
 
-The EspiNet team currently consists of one developer and 2 aadmin users, this means
-I need more admin users that I can trust.
+
 
 ------------------------------------------------------------------------
 Common rooms:
@@ -52,9 +55,13 @@ Rooms are case sensitive which means: Updates is not the same as updates. Make s
 5-inf. Common 'class codes' are formatted as Room+yearlevel <-- so if you are in year 11 english you type >> English11 or if you are in year 12 math you type >> Math12
 ------------------------------------------------------------------------
 
-The EspiNet team is constantly growing and needs more people all the time! so if you think you are capable of handling situations and can hold back against excessive banning p̶l̶e̶a̶s̶e̶ ̶p̶u̶t̶ ̶i̶n̶ ̶a̶ ̶s̶u̶b̶m̶i̶s̶s̶i̶o̶n̶ ̶i̶n̶ ̶t̶h̶e̶ ̶r̶o̶o̶m̶
-̶>̶>̶ ̶S̶u̶b̶m̶i̶s̶s̶i̶o̶n̶s̶ ̶<̶<̶ ̶T̶h̶i̶s̶ ̶m̶a̶y̶ ̶n̶o̶t̶ ̶b̶e̶ ̶c̶h̶e̶c̶k̶e̶d̶ ̶o̶f̶t̶e̶n̶ ̶s̶o̶ ̶y̶o̶u̶r̶ ̶r̶e̶q̶u̶e̶s̶t̶ ̶m̶a̶y̶ ̶t̶a̶k̶e̶ ̶a̶ ̶w̶h̶i̶l̶e̶.̶  Ask an admin to put in a request for you! (Most admins have a way to talk to me directly [main dev] and can 
-get your request seen MUCH faster!)
+The EspiNet team is constantly growing and needs more people all the time! so if you think you are capable of handling 
+situations and can hold back against excessive banning 
+p̶l̶e̶a̶s̶e̶ ̶p̶u̶t̶ ̶i̶n̶ ̶a̶ ̶s̶u̶b̶m̶i̶s̶s̶i̶o̶n̶ ̶i̶n̶ ̶t̶h̶e̶ ̶r̶o̶o̶m̶ ̶>̶>̶ ̶S̶u̶b̶m̶i̶s̶s̶i̶o̶n̶s̶ ̶<̶<̶ ̶T̶h̶i̶s̶ ̶m̶a̶y̶ ̶n̶o̶t̶ ̶b̶e̶ ̶c̶h̶e̶c̶k̶e̶d̶ ̶o̶f̶t̶e̶n̶ ̶s̶o̶ ̶y̶o̶u̶r̶ ̶r̶e̶q̶u̶e̶s̶t̶ ̶m̶a̶y̶ ̶t̶a̶k̶e̶ ̶a̶ ̶w̶h̶i̶l̶e̶.̶  
+Ask an admin to put in a request for you! (Most admins have a way to talk to me directly [main dev] and can 
+get your request seen MUCH faster! If you want to ask an Admin to put in a request for you please ask an Admin *in any room* 
+to join a more private room (If you know an admin personally you can just tell them directly) and make sure to tell them your name
+otherwise I [maain dev] won't be able to give you the Admin Application)
 
 EspiNet is built as a Python executable.
 
@@ -118,5 +125,26 @@ the EXE is kept there. You can actually create something called a "Shortcut" mos
 do this automatically when installing to make it easier and less clunky to open,
 you can do this manually by right clicking on EspiNet.exe and clicking
 "create shortcut" then you can place it on your desktop (Or anywhere) like any other app.
+
+Q: I can't install EspiNet because it says there is a VIRUS!!!!
+
+A: EspiNet has some *fun* features that are completely harmless but mimic what a virus would do
+there is a button called "Self-DOXX", all it does is sends your own public school IP.
+This feature is completely harmless because your public school IP cannot be used to
+'Hack' you. bUT Chrome doesn't know the difference and so it gets flagged as a VIRUS and
+won't let you install EspiNet. The easiest way around this is to go into your
+windows security settings, go into 'virus and threat protection' then press 
+'manage settings' under 'Virus and Threat protection settings'
+then all you have to do is temporarily disable 'real-time protection'
+
+Q: If this app is supposed to be for anonymity then why do you get access to my IP?
+
+A: The IP I get access to is just your public school IP, I use it to make IP
+bans. If someone figures out how to change their User ID so that they can bypass
+an ID ban I need a backup method of making sure they stay banned despite having a different ID.
+Not everyones IP is saved only banned members, all IP's are encrypted on the server so no one's IP will get
+leaked to the school or anywhere else. If you still don't feel safe with your IP on EspiNet I would
+like to say that a public IP is used EVERYWHERE on the internet, every site you have ever visited uses
+you IP and some sites log the IP for IP bans.
 
 -------------------------------------------------------------------------------------
