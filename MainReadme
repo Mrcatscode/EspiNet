@@ -24,8 +24,7 @@ being updated, re-worked and improved! --- IP Bans exist aswell as ID bans!
 IP Ban > ID Ban (Ip bans are worse than ID bans and are VERY hard to bypass)
 
 3. No impersonating a dev/admin/mod. Any impersonators will be banned!
-We at EspiNet try very hard to keep everything peaceful and if someone is impersonating one of
-us that can damage the EspiNet team's reputation!
+We at EspiNet try very hard to keep everything peaceful and if someone is impersonating one of us that can damage the EspiNet team's reputation!
 
 4. No spamming! Spammers will be banned as soon as an admin/mod sees the spammer! If you need more space to type then put in a request to change the max type space! But at the moment users are allowed to type 500 unique characters within one message.
 
@@ -33,8 +32,8 @@ us that can damage the EspiNet team's reputation!
 
 6. No bullying! All users are allowed to be on EspiNet without the fear of harassment and or bullying!
 
-7. This rule is for the admins! Just because you are an admin does NOT mean you are more privileged than
-any other user, you still have to follow all of the previous rules with the exception being in rule 3 for obvious reasons. Admins have a much more direct way of communicating with me (Original Dev) and so they do have a higher chance of being unbanned.
+7. This rule is for the admins! Just because you are an admin does NOT mean you are more privileged than any other user, you still have to follow all of the previous
+rules with the exception being in rule 3 for obvious reasons. Admins have a much more direct way of communicating with me (Original Dev) and so they do have a higher chance of being unbanned.
 
 ------------------------------------------------------------------------
 
@@ -61,7 +60,7 @@ p̶l̶e̶a̶s̶e̶ ̶p̶u̶t̶ ̶i̶n̶ ̶a̶ ̶s̶u̶b̶m̶i̶s̶s̶i̶o̶n̶ �
 Ask an admin to put in a request for you! (Most admins have a way to talk to me directly [main dev] and can 
 get your request seen MUCH faster! If you want to ask an Admin to put in a request for you please ask an Admin *in any room* 
 to join a more private room (If you know an admin personally you can just tell them directly) and make sure to tell them your name
-otherwise I [maain dev] won't be able to give you the Admin Application)
+otherwise I [main dev] won't be able to give you the Admin Application)
 
 EspiNet is built as a Python executable.
 
@@ -99,7 +98,7 @@ to Mere!!!
 FAQ:
 
 Q: "It says that there is a virus" or "My computer says it may be malicious" when trying to open or
-download EspiNer
+download EspiNet
 
 A: Sometimes if the device does not know where an app came from the device will
 say it is possibly malicous (Even when it isn't) you may be able to press more details and
@@ -108,8 +107,7 @@ say it is possibly malicous (Even when it isn't) you may be able to press more d
 Q: How do I know if the room I made works?
 
 A: If all the previous text from the previous room is gone then you are in a new room
-if you type some stuff and try to go back to the previous room you will see the text will
-dissappear
+if you type some stuff and try to go back to the previous room you will see the text dissappear
 
 Q: When I try to open EspiNet a popup appears saying something went wrong?
 
@@ -131,7 +129,7 @@ Q: I can't install EspiNet because it says there is a VIRUS!!!!
 A: EspiNet has some *fun* features that are completely harmless but mimic what a virus would do
 there is a button called "Self-DOXX", all it does is sends your own public school IP.
 This feature is completely harmless because your public school IP cannot be used to
-'Hack' you. bUT Chrome doesn't know the difference and so it gets flagged as a VIRUS and
+'Hack' you. but Chrome doesn't know the difference and so it gets flagged as a VIRUS and
 won't let you install EspiNet. The easiest way around this is to go into your
 windows security settings, go into 'virus and threat protection' then press 
 'manage settings' under 'Virus and Threat protection settings'
@@ -145,6 +143,6 @@ an ID ban I need a backup method of making sure they stay banned despite having 
 Not everyones IP is saved only banned members, all IP's are encrypted on the server so no one's IP will get
 leaked to the school or anywhere else. If you still don't feel safe with your IP on EspiNet I would
 like to say that a public IP is used EVERYWHERE on the internet, every site you have ever visited uses
-you IP and some sites log the IP for IP bans.
+your IP and some sites log the IP for IP bans.
 
 -------------------------------------------------------------------------------------
