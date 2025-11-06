@@ -95,6 +95,19 @@ and the user who does this WILL BE BANNED) OWNER does have access to what users 
 to Mere!!!
 
 -------------------------------------------------------------------------------------
+EspiNet has a Config system to allow user a way to 'personalise' their version of
+EspiNet.
+The configs work by making a text file with the name 'Config' and placing
+that file into 'ActiveConfig' which is found in the 'Configs' folder in the 
+'build' folder. You can put any Config file into the Configs folder but only one
+Active config can be placed into the 'AcvtiveConfig' folder.
+
+You may see that the default theme has extra text at the bottom which says it is the 
+defaault theme. You can type anything within the file as long as it is beneath the
+actul config settings, so if you waant to at a kind of title and maybe even a 
+description to the config then thata is 100% possible.
+
+-------------------------------------------------------------------------------------
 FAQ:
 
 Q: "It says that there is a virus" or "My computer says it may be malicious" when trying to open or
@@ -140,9 +153,16 @@ Q: If this app is supposed to be for anonymity then why do you get access to my 
 A: The IP I get access to is just your public school IP, I use it to make IP
 bans. If someone figures out how to change their User ID so that they can bypass
 an ID ban I need a backup method of making sure they stay banned despite having a different ID.
-Not everyones IP is saved only banned members, all IP's are encrypted on the server so no one's IP will get
+Not everyones IP is saved just the banned IP's. All IP's are encrypted on the server and no one's IP will get
 leaked to the school or anywhere else. If you still don't feel safe with your IP on EspiNet I would
 like to say that a public IP is used EVERYWHERE on the internet, every site you have ever visited uses
 your IP and some sites log the IP for IP bans.
+
+Q: What are the 'Logs' for? AAre you spying on me!?
+
+A: The 'Logs' are there to make sure if there is an error it gets printed
+out to the log file so you can read the error or so you can give me the
+'Log' file and I can read the error. This is to make sure everyone can use
+EspiNet.
 
 -------------------------------------------------------------------------------------
