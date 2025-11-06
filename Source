@@ -73,19 +73,7 @@ def SetID():
             print(f"There was an error retrieving UID: {e}")
     print(UniqueID)
     return UniqueID
-                
-def SetRoom(override):
-    global RoomKey, last_message_count
-    RoomKey = RoomNumberEntry.get().strip()
-    if RoomKey == "":
-        RoomKey = 'Global'
-    elif RoomKey == 'AdminSpace' and Admin == False:
-        RoomKey = 'Global'
-    elif override == "Global":
-        RoomKey = "Global"
-    elif override == 'AdminSpace' and Admin == True:
-        RoomKey = 'AdminSpace'
-    print("Room set to:", RoomKey)
+
     # When the room changes, reset the message count to fetch all messages for the new room
     last_message_count = 0
     # Immediately update the chat for the new room
@@ -232,24 +220,6 @@ def update_chat(initial_load=False): # Added initial_load parameter
                 if initial_load:
                     TextChat.see('end')
 
-    except requests.exceptions.RequestException as e:
-        print("Error fetching messages:", e)
-    
-    Window.after(500, update_chat)
-
-def send_message(override):
-    global TextChat, TextEntry, Usernameentry, ServerIP, key, RoomKey
-    Username = Usernameentry.get().strip()
-    UID = SetID()
-    print(UID)
-    if not Username:
-        Username = "Anonymous"
-    elif "admin" in Username.lower():
-        if Admin == True:
-            Username = "⩑~Admin"
-        else:
-            Username = "Fake~Admin"
-    elif Username.lower() == "void":
         Username = "⌬~Void"
 
     message_text = TextEntry.get().strip()
@@ -274,21 +244,7 @@ def send_message(override):
         /flip - Flips the table
         /unflip - Unflips the table
         /shrug - Shrug emoticon
-        /table - Sets the table upright
-        /lenny - Lenny face
-        /help - Show this help message"""
-    
-    if Admin == False:
-        message = f"""_________________________________________________________________
-{Username} | {UID}:
-{message_text}
-    _________________________________________________________________
-    """
-    elif Admin == True:
-        message = f"""_________________________________________________________________
-{Username} | {UID} | Admin:
-{message_text}
-    _________________________________________________________________
+       _________________________________
     """
     if message_text:
         fernet = Fernet(key)
@@ -314,26 +270,13 @@ def updateonlinecount():
     ActiveUsers = data.get("online_users")
     ActiveUserscount.configure(text=f'Active Users: {ActiveUsers}')
     Window.after(500, updateonlinecount)
-
-def SendBan():
-    if Admin == True:
-        global TextEntry
-        BanID = TextEntry.get()
-        if BanID:
-            url = f"http://{ServerIP}:5389/data"
-            payload = {"banrequest": BanID}
-            response = requests.post(url, json=payload)
             if response.status_code != 200:
                 print("Failed to send message:", response.status_code)
             send_message(f'{BanID} has been banned!')
             TextEntry.delete(0, 'end')
             TextEntry.update()
 
-def SendUnban():
-    if Admin == True:
-        global TextEntry
-        UnBanID = TextEntry.get()
-        if UnBanID:
+def SendUnban():        if UnBanID:
             url = f"http://{ServerIP}:5389/data"
             payload = {"unbanrequest": UnBanID}
             response = requests.post(url, json=payload)
@@ -353,14 +296,7 @@ def SendReport(Reason):
             response = requests.post(url, json=payload)
             if response.status_code != 200:
                 print("Failed to send report:", response.status_code)
-            TextEntry.delete(0, 'end')
-            TextEntry.update()
-
-def ClearRoom():
-    if Admin == True:
-        global RoomKey
-        print('Room clearing...')
-        url = f"http://{ServerIP}:5389/data"
+ ServerIP}:5389/data"
         payload = {"room": RoomKey, "clearroom": True}
         response = requests.post(url, json=payload)
         print('Room cleared!')
@@ -429,11 +365,7 @@ Usernameentry.pack(side="left", padx=1)
 RoomNumberEntry = ctk.CTkEntry(ButtonHolder, width=150, height=40, corner_radius=5, fg_color="#2E2E2E", text_color="white", font=("Arial", 17), border_width=0, placeholder_text="Room Number", placeholder_text_color="#7A00B3")
 RoomNumberEntry.pack(side="left", padx=1)
 SetRoomButton = ctk.CTkButton(ButtonHolder, text="Set Room", command=lambda: SetRoom(None), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
-SetRoomButton.pack(side="left", padx=1)
-
-if Admin == True:
-    BanButton = ctk.CTkButton(ButtonHolder, text="BanUser", command=lambda: SendBan(), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
-    BanButton.pack(side="left", padx=1)
+ide="left", padx=1)
 
 ActiveUserscount = ctk.CTkLabel(ButtonHolder, text=f'Active Users: 0', font=("Arial", 17))
 ActiveUserscount.pack(side='right', padx=5)
@@ -484,17 +416,9 @@ ReportRacism = ctk.CTkButton(Settingsholder, text="Report Racism", command=lambd
 ReportRacism.pack(padx=2, pady=3, fill='x', expand=True)
 
 ReportSpam = ctk.CTkButton(Settingsholder, text="Report Spam", command=lambda: SendReport('Reason_Spamming'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
-ReportSpam.pack(padx=2, pady=3, fill='x', expand=True)
 
-if Admin == True:
-    DividerAdmin = ctk.CTkLabel(Settingsholder, text='---Admin---')
-    DividerAdmin.pack(padx=2, pady=3, fill='x', expand=True)
-    
     UnbanButton = ctk.CTkButton(Settingsholder, text="Unban", command=lambda: SendUnban(), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
     UnbanButton.pack(padx=2, pady=3, fill='x', expand=True)
-    
-    AdminSpaceButton = ctk.CTkButton(Settingsholder, text="AdminSpace", command=lambda: SetRoom('AdminSpace'), width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
-    AdminSpaceButton.pack(padx=2, pady=3, fill='x', expand=True)
     
     ClearRoomButton = ctk.CTkButton(Settingsholder, text="Clear Room", command=ClearRoom, width=100, height=40, fg_color="#5C0099", hover_color="#7A00B3", corner_radius=5)
     ClearRoomButton.pack(padx=2, pady=3, fill='x', expand=True)
