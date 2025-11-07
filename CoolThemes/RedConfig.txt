@@ -1,0 +1,10 @@
+TitleBarColor:#700000
+ButtonColor:#700000
+HoverColor:#600000
+TextBoxColor:#150000
+TextBoxTextColor:#ffffff
+SystemTheme:dark
+SettingText:#ffffff
+TextColor:#ff0000
+
+Red Config (For those edgy darknet hackers!)
