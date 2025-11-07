@@ -1,0 +1,10 @@
+TitleBarColor:#700070
+ButtonColor:#700070
+HoverColor:#600060
+TextBoxColor:#1A1A1A
+TextColor:#600070
+SystemTheme:dark
+SettingText:#ffffff
+TextBoxTextColor:#ffffff
+
+Default Theme

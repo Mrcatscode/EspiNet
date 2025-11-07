@@ -1,0 +1,10 @@
+TitleBarColor:#cc00cc
+ButtonColor:#cc00cc
+HoverColor:#600060
+TextBoxColor:#1A1A1A
+TextBoxTextColor:#ff00ff
+SystemTheme:dark
+SettingText:#ffffff
+TextColor:#cc00cc
+
+Femboy Theme
